@@ -7,8 +7,34 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
+  <header>
+    <% if logged_in? %>
+      <h3>Welcome <%= current_user.user_name %></h3>
+      <form action="<%= session_url %>" method="POST">
+        <input type="hidden" name="_method" value="DELETE">
+        <input
+          type="hidden"
+          name="authenticity_token"
+          value="<%= form_authenticity_token %>">
+        <input type="submit" value="Logout">
+      </form>
+
+    <% else %>
+      <a href="<%= new_user_url %>">Sign Up!</a>
+      <a href="<%= new_session_url %>">Log In</a>
+    <% end %>
+
+  </header>
 
   <body>
+
+  <% if flash[:errors] %>
+    <% flash[:errors].each do |error| %>
+      <br>
+      <%= error %>
+    <% end %>
+  <% end %>
+
     <%= yield %>
   </body>
 </html>

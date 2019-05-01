@@ -12,10 +12,13 @@
     </tr>
   <% end %>
 </table>
+<% if current_user.id == @cat.user_id %>
+  <a href="<%= edit_cat_url(@cat) %>">Edit <%= @cat.name %></a>
+<% end %>
 
-<a href="<%= edit_cat_url(@cat) %>">Edit <%= @cat.name %></a>
+<br><br>
 
-<h2>Rental Requests</h2>
+<h2>-- Rental Requests --</h2>
 <table>
   <tr>
     <th>Start Date</th>
