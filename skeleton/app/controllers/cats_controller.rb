@@ -51,6 +51,7 @@ class CatsController < ApplicationController
   end
 
   def require_owner!
-    redirect_to cats_url unless !@cat.nil? && current_user.id == @cat.user_id
+    @cat = Cat.find(params[:id])
+    redirect_to cats_url unless current_user.id == @cat.owner.id 
   end
 end
